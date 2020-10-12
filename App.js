@@ -15,7 +15,7 @@ function App() {
       <Text style={styles.tittle}>Administrador de Citas</Text>
       <FlatList
         data={citas}
-        renderItem={({item}) => <Cita item={item} />}
+        renderItem={({item}) => <Cita item={item} setCitas={setCitas}/>}
         keyExtractor={(cita) => cita.id.toString()}
       />
     </View>

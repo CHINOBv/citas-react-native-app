@@ -1,7 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button, TouchableHighlight} from 'react-native';
 
-const Cita = ({item}) => {
+const Cita = ({item, setCitas}) => {
+  const deleteQuote = (id) => {
+    console.log('delete...');
+    setCitas((citaActual) => {
+      return citaActual.filter((cita) => cita.id !== id);
+    });
+  };
   return (
     <View style={styles.container}>
       <View>
@@ -16,9 +22,13 @@ const Cita = ({item}) => {
         <Text style={styles.label}>Sintomas:</Text>
         <Text style={styles.text}>{item.symptoms}</Text>
       </View>
-      <TouchableHighlight>
-        <Text>Eliminar</Text>
-      </TouchableHighlight>
+      <View>
+        <TouchableHighlight
+          style={styles.btnDelete}
+          onPress={() => deleteQuote(item.id)}>
+          <Text style={styles.txtDelete}>Eliminar &times;</Text>
+        </TouchableHighlight>
+      </View>
     </View>
   );
 };
@@ -39,6 +49,17 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
+  },
+  btnDelete: {
+    padding: 10,
+    backgroundColor: 'red',
+    marginVertical: 10,
+  },
+  txtDelete: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
 
