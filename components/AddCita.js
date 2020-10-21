@@ -10,8 +10,9 @@ import {
   Alert,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import shortid from 'shortid';
 
-function AddCita() {
+function AddCita({citas, setCitas, setShowForm}) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
@@ -68,9 +69,19 @@ function AddCita() {
       showAlert();
       return;
     }
-    console.log('pass');
+    const quote = {Owner, Ped, Phone, Symptoms, Date, Time};
+    quote.id = shortid.generate();
+    console.log(quote);
+    const newQuotes = [...citas, quote];
+    setCitas(newQuotes);
+    setShowForm(false);
+    setOwner('');
+    setPed('');
+    setPhone('');
+    setSymptoms('');
+    setDate('');
+    setTime('');
   };
-
   const showAlert = () => {
     Alert.alert('Error', 'Todos los Campos son Obligatorios');
   };

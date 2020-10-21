@@ -13,9 +13,9 @@ import AddCita from './components/AddCita';
 
 function App() {
   const [citas, setCitas] = useState([
-    {id: 1, ped: 'David', owner: 'Karla', symptoms: 'no come el hdsp xd'},
-    {id: 2, ped: 'Enrique', owner: 'Arely', symptoms: 'no se duerme'},
-    {id: 3, ped: 'Luis', owner: 'Pamela', symptoms: 'Esta bien pendejo jsjs'},
+    {id: 1, Ped: 'David', Owner: 'Karla', Symptoms: 'no come el hdsp xd'},
+    {id: 2, Ped: 'Enrique', Owner: 'Arely', Symptoms: 'no se duerme'},
+    {id: 3, Ped: 'Luis', Owner: 'Pamela', Symptoms: 'Esta bien pendejo jsjs'},
   ]);
 
   const [showForm, setShowForm] = useState(false);
@@ -28,15 +28,19 @@ function App() {
           style={styles.btnShow}
           onPress={() => (showForm ? setShowForm(false) : setShowForm(true))}>
           <Text style={styles.txtShow}>
-            {showForm ? 'Mostrar Citas' : 'Agregar Cita'}
+            {showForm ? 'Cancelar Cita' : 'Crear Nueva Cita'}
           </Text>
         </TouchableHighlight>
       </View>
       <View style={styles.content}>
         {showForm ? (
           <>
-          <Text style={styles.tittle}>Agrega una Cita</Text>
-          <AddCita />
+            <Text style={styles.tittle}>Agrega una Cita</Text>
+            <AddCita
+              citas={citas}
+              setCitas={setCitas}
+              setShowForm={setShowForm}
+            />
           </>
         ) : (
           <>

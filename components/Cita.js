@@ -12,15 +12,15 @@ const Cita = ({item, setCitas}) => {
     <View style={styles.container}>
       <View>
         <Text style={styles.label}>Mascota:</Text>
-        <Text style={styles.text}>{item.ped}</Text>
+        <Text style={styles.text}>{item.Ped}</Text>
       </View>
       <View>
         <Text style={styles.label}>Propietario:</Text>
-        <Text style={styles.text}>{item.owner}</Text>
+        <Text style={styles.text}>{item.Owner}</Text>
       </View>
       <View>
         <Text style={styles.label}>Sintomas:</Text>
-        <Text style={styles.text}>{item.symptoms}</Text>
+        <Text style={styles.text}>{item.Symptoms}</Text>
       </View>
       <View>
         <TouchableHighlight
