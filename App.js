@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -7,18 +7,34 @@ import {
   Platform,
   TouchableHighlight,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Cita from './components/Cita.js';
 import AddCita from './components/AddCita';
 
 function App() {
-  const [citas, setCitas] = useState([
-    {id: 1, Ped: 'David', Owner: 'Karla', Symptoms: 'no come el hdsp xd'},
-    {id: 2, Ped: 'Enrique', Owner: 'Arely', Symptoms: 'no se duerme'},
-    {id: 3, Ped: 'Luis', Owner: 'Pamela', Symptoms: 'Esta bien pendejo jsjs'},
-  ]);
+  const [citas, setCitas] = useState([]);
+  useEffect(() => {
+    const getQuotes = async () => {
+      try {
+        const quotes = await AsyncStorage.getItem('quotes');
+        quotes.trim() ? setCitas(JSON.parse(quotes)) : null;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getQuotes();
+  }, [citas]);
 
   const [showForm, setShowForm] = useState(false);
+
+  const saveQuotes = async (quotesJSON) => {
+    try {
+      await AsyncStorage.setItem('quotes', quotesJSON);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -40,6 +56,7 @@ function App() {
               citas={citas}
               setCitas={setCitas}
               setShowForm={setShowForm}
+              saveQuotes={saveQuotes}
             />
           </>
         ) : (
@@ -50,7 +67,14 @@ function App() {
             <FlatList
               style={styles.listQuotes}
               data={citas}
-              renderItem={({item}) => <Cita item={item} setCitas={setCitas} />}
+              renderItem={({item}) => (
+                <Cita
+                  item={item}
+                  setCitas={setCitas}
+                  citas={citas}
+                  saveQuotes={saveQuotes}
+                />
+              )}
               keyExtractor={(cita) => cita.id.toString()}
             />
           </>

@@ -1,12 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button, TouchableHighlight} from 'react-native';
 
-const Cita = ({item, setCitas}) => {
+const Cita = ({item, setCitas, citas, saveQuotes}) => {
   const deleteQuote = (id) => {
-    console.log('delete...');
-    setCitas((citaActual) => {
-      return citaActual.filter((cita) => cita.id !== id);
-    });
+    const quotesFiltered = citas.filter((cita) => cita.id !== id);
+    saveQuotes(JSON.stringify(quotesFiltered));
   };
   return (
     <View style={styles.container}>
@@ -36,7 +34,7 @@ const Cita = ({item, setCitas}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    borderBottomColor: '#111',
+    borderBottomColor: '#f1f1f1',
     borderStyle: 'solid',
     borderBottomWidth: 1,
     paddingVertical: 20,
